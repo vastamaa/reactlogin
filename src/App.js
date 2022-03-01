@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Bejelentkezes } from "./Bejelentkezes";
+import { SzallasLista } from "./SzallasokLista";
+import { SzallasSingle } from "./SzallasSingle";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/bejelentkezes" exact component={Bejelentkezes}></Route>
+        
+        <Route path="/osszes-szallas" exact component={SzallasLista}></Route>
+
+        <Route path="/szallas-:szallasId">
+          {(props) => <SzallasSingle id={props.match.params.szallasId}/>}
+        
+        </Route>
+        <Redirect to={"/bejelentkezes"} />
+      </Switch>
+    </BrowserRouter>
   );
+
 }
 
-export default App;
+
